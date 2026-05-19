@@ -424,3 +424,24 @@ for chunk in response:
 
 print()
 ```
+
+## 5. AMD MI355X
+
+### Docker Setup
+
+```bash
+docker run -d   --device=/dev/kfd --device=/dev/dri   --group-add video --cap-add=SYS_PTRACE   --security-opt seccomp=unconfined   --shm-size=32g --ipc=host --network=host   lmsysorg/sglang-rocm:v0.5.11-rocm720-mi30x-20260513 bash
+```
+
+### Model Deployment
+
+```bash
+python   -m sglang.launch_server   --model Qwen/Qwen3.6-35B-A3B-FP8   --tp 1   --reasoning-parser qwen3
+```
+
+### Benchmark Results
+
+| Task | Shots | Metric | Score |
+|------|-------|--------|-------|
+| gsm8k | 8 | exact_match | 0.5785 |
+
